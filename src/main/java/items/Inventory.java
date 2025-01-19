@@ -19,20 +19,6 @@ public class Inventory
     public static final int DEFAULT_SIZE = 10;
 
     /**
-     * This is utility function that takes two ItemStacks and adds the
-     * number of items in the right-hand side stack to the left-hand side stack.
-     *
-     * @param lhs stack whose size will be increased
-     * @param rhs stack whose size we need to examine
-     */
-    public static void mergeStacks(ItemStack lhs, ItemStack rhs)
-    {
-        // lhs needs to have items added to it.
-        // rhs's size is needed
-        // lhs.????(rhs.????)
-    }
-
-    /**
      * Individual item slots--each ItemStack occupies one slot.
      */
     private LinkedList<ItemStack> slots;
@@ -41,6 +27,21 @@ public class Inventory
      * Total number of distinct Item types that can be stored.
      */
     private int capacity;
+
+
+    /**
+     * This is utility function that takes two ItemStacks and adds the
+     * number of items in the right-hand side stack to the left-hand side stack.
+     *
+     * @param lhs stack whose size will be increased
+     * @param rhs stack whose size we need to examine
+     */
+    public static void mergeStacks(ItemStack lhs, ItemStack rhs)
+    {
+        lhs.addItems(rhs.size());
+    }
+
+    
 
     /**
      * Default to an inventory with 10 slots.
@@ -93,7 +94,9 @@ public class Inventory
      */
     public boolean isFull()
     {
-        // Replace the next line
+        if (this.utilizedSlots() == this.totalSlots()) { 
+            return true;  
+        }
         return false;
     }
 
@@ -117,8 +120,15 @@ public class Inventory
      */
     public ItemStack findMatchingItemStack(ItemStack key)
     {
-        // Add the necessary sequential search loop
+        LinkedList.Node current = this.slots.head;
 
+        while (current != null) {
+            ItemStack currentItemStack = (ItemStack) current.data; // cast to itemstack so current is still able to use .next
+            if (currentItemStack.getItem().equals(key.getItem())) { // checking if the item type is the same
+                return currentItemStack;
+            }
+            current = current.next;
+        }
         return null;
     }
 
@@ -133,6 +143,7 @@ public class Inventory
 
         // Use the appendNode/add logic from Review 1 as your starting point
         // Once we reach this function... we know that `toAdd` must be stored
+        // TODO
     }
 
     /**
