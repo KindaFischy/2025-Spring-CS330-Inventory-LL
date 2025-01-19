@@ -139,11 +139,21 @@ public class Inventory
      */
     public void addItemStackNoCheck(ItemStack toAdd)
     {
-        LinkedList.Node<ItemStack> newNode = new LinkedList.Node<>(toAdd);
+        LinkedList.Node<ItemStack> newNode = new LinkedList.Node<>(toAdd); // noCheck means we are not using findMatchingItemStack
 
-        // Use the appendNode/add logic from Review 1 as your starting point
-        // Once we reach this function... we know that `toAdd` must be stored
-        // TODO
+        // if adding the first node
+        if (this.slots.head == null) {
+            this.slots.head = newNode;
+            this.slots.tail = newNode;
+            this.slots.currentSize = 1;
+        }
+
+        // linking the newNode to the end of an existing list
+        else {
+            this.slots.tail.next = newNode;
+            this.slots.tail = this.slots.tail.next;
+            ++this.slots.currentSize;
+        }
     }
 
     /**
