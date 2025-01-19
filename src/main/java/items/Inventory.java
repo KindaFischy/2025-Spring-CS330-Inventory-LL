@@ -139,7 +139,7 @@ public class Inventory
      */
     public void addItemStackNoCheck(ItemStack toAdd)
     {
-        LinkedList.Node<ItemStack> newNode = new LinkedList.Node<>(toAdd); // noCheck means we are not using findMatchingItemStack
+        LinkedList.Node<ItemStack> newNode = new LinkedList.Node<>(toAdd); // noCheck means we are not using findMatchingItemStackatchingItemStack
 
         // if adding the first node
         if (this.slots.head == null) {
